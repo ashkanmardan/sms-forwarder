@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">انتقال پیامک</string>
+
+    <string name="app_tagline">فوروارد شخصی پیامک</string>
+    <string name="app_title">انتقال خودکار پیامک</string>
+    <string name="app_subtitle">هر پیامک دریافتی را به شماره‌ای که انتخاب می‌کنید می‌فرستد؛ ساده، آفلاین و روی گوشی خودتان.</string>
+
+    <string name="status_label">وضعیت انتقال</string>
+    <string name="status_off">خاموش</string>
+    <string name="status_on">روشن</string>
+    <string name="status_ready">دسترسی‌های اصلی آماده‌اند</string>
+    <string name="status_needs_permissions">برای شروع، دسترسی دریافت و ارسال پیامک را بدهید</string>
+
+    <string name="destination_title">شماره مقصد</string>
+    <string name="destination_hint">مثال: +989121234567</string>
+    <string name="destination_helper">شماره را همراه با کد کشور وارد کنید؛ مثل +98 یا +36.</string>
+    <string name="enabled_switch">انتقال پیامک‌ها فعال باشد</string>
+    <string name="save_button">ذخیره و فعال‌سازی</string>
+
+    <string name="setup_title">راه‌اندازی سریع</string>
+    <string name="setup_hint">اول دسترسی‌ها را تأیید کنید، بعد یک پیام آزمایشی بفرستید.</string>
+    <string name="permission_button">۱. دادن دسترسی‌های لازم</string>
+    <string name="test_button">۲. ارسال پیامک آزمایشی</string>
+
+    <string name="guide_title">راهنمای سریع</string>
+    <string name="guide_1">شماره مقصد را با کد کشور وارد کنید.</string>
+    <string name="guide_2">دسترسی دریافت و ارسال پیامک را تأیید کنید.</string>
+    <string name="guide_3">انتقال را روشن کنید و تنظیمات را ذخیره کنید.</string>
+    <string name="guide_device_title">نکته‌های گوشی</string>
+    <string name="guide_device_1">سامسونگ: وارد App info شوید، Permissions را باز کنید و SMS را روی Allow بگذارید. اگر بسته بود، از منوی سه‌نقطه Restricted settings را هم فعال کنید.</string>
+    <string name="guide_device_2">شیائومی: وارد App info شوید، Other permissions را باز کنید و اگر دیده شد SMS و Autostart را روی Allow بگذارید.</string>
+    <string name="guide_device_3">اگر اندروید هنوز SMS را می‌بندد، بعد از تغییر مجوزها برنامه را دوباره باز کنید.</string>
+
+    <string name="last_activity_title">آخرین فعالیت</string>
+    <string name="footer_note">پیام‌های منتقل‌شده از سیم‌کارت شما ارسال می‌شوند و ممکن است هزینه پیامک داشته باشند. متن پیام‌ها در اینترنت بارگذاری نمی‌شود.</string>
+
+    <string name="toast_enter_destination">ابتدا شماره مقصد را وارد کنید.</string>
+    <string name="toast_saved">تنظیمات ذخیره شد.</string>
+    <string name="toast_enabled">انتقال پیامک فعال شد.</string>
+    <string name="toast_permissions_ready">همه دسترسی‌های لازم داده شده‌اند.</string>
+    <string name="toast_allow_send_first">ابتدا دسترسی ارسال پیامک را تأیید کنید.</string>
+    <string name="test_confirm_title">پیامک آزمایشی ارسال شود؟</string>
+    <string name="test_confirm_message">یک پیامک واقعی به %1$s ارسال می‌شود و ممکن است هزینه داشته باشد.</string>
+    <string name="test_confirm_positive">ارسال</string>
+    <string name="test_confirm_negative">انصراف</string>
+    <string name="test_sms_body">[انتقال پیامک]
+این یک پیام آزمایشی است. برنامه روی این گوشی آماده است.</string>
+    <string name="toast_test_sent">پیامک آزمایشی ارسال شد.</string>
+    <string name="toast_test_failed">ارسال پیامک انجام نشد.</string>
+    <string name="toast_permissions_needed">ابتدا دسترسی دریافت و ارسال پیامک را بدهید.</string>
+
+    <string name="permission_dialog_title">دسترسی SMS بسته شده</string>
+    <string name="permission_dialog_message">اندروید دسترسی پیامک را از این برنامه رد کرده است. از صفحه تنظیمات برنامه، بخش Permissions، گزینه‌های SMS را روی Allow بگذار و اگر گزینه‌ای برای Restricted settings دیدی، آن را هم فعال کن.</string>
+    <string name="permission_dialog_positive">باز کردن تنظیمات</string>
+    <string name="permission_dialog_negative">بعدا</string>
+</resources>
