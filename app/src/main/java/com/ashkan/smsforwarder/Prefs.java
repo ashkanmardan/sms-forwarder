@@ -9,6 +9,7 @@ public final class Prefs {
     private static final String KEY_ENABLED = "enabled";
     private static final String KEY_LAST_EVENT = "last_event";
     private static final String KEY_LANGUAGE = "language";
+    private static final String KEY_PERMISSIONS_REQUESTED = "permissions_requested";
 
     private Prefs() {}
 
@@ -33,7 +34,7 @@ public final class Prefs {
     }
 
     public static String getLastEvent(Context context) {
-        return prefs(context).getString(KEY_LAST_EVENT, "هنوز پیامکی منتقل نشده است.");
+        return prefs(context).getString(KEY_LAST_EVENT, context.getString(R.string.no_activity_yet));
     }
 
     public static void setLastEvent(Context context, String value) {
@@ -46,5 +47,13 @@ public final class Prefs {
 
     public static void setLanguage(Context context, String value) {
         prefs(context).edit().putString(KEY_LANGUAGE, value == null ? "" : value.trim()).apply();
+    }
+
+    public static boolean werePermissionsRequested(Context context) {
+        return prefs(context).getBoolean(KEY_PERMISSIONS_REQUESTED, false);
+    }
+
+    public static void markPermissionsRequested(Context context) {
+        prefs(context).edit().putBoolean(KEY_PERMISSIONS_REQUESTED, true).apply();
     }
 }

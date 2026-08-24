@@ -11,12 +11,18 @@
     <string name="status_on">روشن</string>
     <string name="status_ready">دسترسی‌های اصلی آماده‌اند</string>
     <string name="status_needs_permissions">برای شروع، دسترسی دریافت و ارسال پیامک را بدهید</string>
+    <string name="setup_progress">پیشرفت راه‌اندازی: %1$d مرحله از ۳ مرحله کامل است</string>
 
     <string name="destination_title">شماره مقصد</string>
     <string name="destination_hint">مثال: +989121234567</string>
     <string name="destination_helper">شماره را همراه با کد کشور وارد کنید؛ مثل +98 یا +36.</string>
     <string name="enabled_switch">انتقال پیامک‌ها فعال باشد</string>
     <string name="save_button">ذخیره و فعال‌سازی</string>
+    <string name="invalid_destination">یک شماره معتبر شامل ۷ تا ۱۵ رقم وارد کنید.</string>
+    <string name="language_button">تغییر زبان برنامه</string>
+    <string name="language_dialog_title">زبان برنامه</string>
+    <string name="language_apply">اعمال</string>
+    <string name="language_cancel">انصراف</string>
 
     <string name="setup_title">راه‌اندازی سریع</string>
     <string name="setup_hint">اول دسترسی‌ها را تأیید کنید، بعد یک پیام آزمایشی بفرستید.</string>
@@ -24,6 +30,8 @@
     <string name="test_button">۲. ارسال پیامک آزمایشی</string>
 
     <string name="guide_title">راهنمای سریع</string>
+    <string name="show_guide">باز کردن راهنما و نکات گوشی</string>
+    <string name="hide_guide">بستن راهنما</string>
     <string name="guide_1">شماره مقصد را با کد کشور وارد کنید.</string>
     <string name="guide_2">دسترسی دریافت و ارسال پیامک را تأیید کنید.</string>
     <string name="guide_3">انتقال را روشن کنید و تنظیمات را ذخیره کنید.</string>
@@ -33,6 +41,7 @@
     <string name="guide_device_3">اگر اندروید هنوز SMS را می‌بندد، بعد از تغییر مجوزها برنامه را دوباره باز کنید.</string>
 
     <string name="last_activity_title">آخرین فعالیت</string>
+    <string name="no_activity_yet">هنوز پیامکی منتقل نشده است.</string>
     <string name="footer_note">پیام‌های منتقل‌شده از سیم‌کارت شما ارسال می‌شوند و ممکن است هزینه پیامک داشته باشند. متن پیام‌ها در اینترنت بارگذاری نمی‌شود.</string>
 
     <string name="toast_enter_destination">ابتدا شماره مقصد را وارد کنید.</string>
@@ -54,4 +63,16 @@
     <string name="permission_dialog_message">اندروید دسترسی پیامک را از این برنامه رد کرده است. از صفحه تنظیمات برنامه، بخش Permissions، گزینه‌های SMS را روی Allow بگذار و اگر گزینه‌ای برای Restricted settings دیدی، آن را هم فعال کن.</string>
     <string name="permission_dialog_positive">باز کردن تنظیمات</string>
     <string name="permission_dialog_negative">بعدا</string>
+    <string name="notification_channel_name">وضعیت انتقال پیامک</string>
+    <string name="notification_channel_description">نتیجه انتقال پیامک‌های دریافتی را نمایش می‌دهد.</string>
+    <string name="unknown_sender">فرستنده ناشناس</string>
+    <string name="forwarded_message">[انتقال پیامک]\nاز طرف: %1$s\n\n%2$s</string>
+    <string name="event_forwarded">پیامک %1$s در %2$s منتقل شد.</string>
+    <string name="event_failed">انتقال پیامک در %1$s ناموفق بود.</string>
+    <string name="event_permission_failed">پیامک دریافت شد، اما دسترسی ارسال پیامک داده نشده است.</string>
+    <string name="notification_forwarded_title">پیامک منتقل شد</string>
+    <string name="notification_forwarded_body">پیام دریافتی از %1$s ارسال شد.</string>
+    <string name="notification_failed_title">خطا در انتقال پیامک</string>
+    <string name="notification_failed_body">پیامک دریافتی ارسال نشد.</string>
+    <string name="notification_permission_body">دسترسی ارسال پیامک داده نشده است.</string>
 </resources>

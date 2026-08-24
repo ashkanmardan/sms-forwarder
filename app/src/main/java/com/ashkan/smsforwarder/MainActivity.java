@@ -4,12 +4,13 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -24,22 +25,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends Activity {
-    private static final List<String> SUPPORTED_LANGUAGES = Arrays.asList("fa", "en", "ar", "tr");
     private static final int REQ_PERMISSIONS = 901;
-    private static final int NAVY = Color.rgb(20, 42, 66);
-    private static final int TEAL = Color.rgb(0, 137, 123);
-    private static final int MUTED = Color.rgb(91, 111, 129);
+    private static final int NAVY = Color.rgb(30, 58, 95);
+    private static final int TEAL = Color.rgb(0, 121, 107);
+    private static final int MUTED = Color.rgb(71, 85, 105);
+    private static final int BACKGROUND = Color.rgb(248, 250, 252);
+    private static final int BORDER = Color.rgb(203, 213, 225);
+    private static final int WARNING = Color.rgb(180, 83, 9);
 
     private EditText destinationInput;
     private Switch enabledSwitch;
     private TextView permissionStatus;
     private TextView lastEvent;
     private TextView stateBadge;
+    private TextView setupProgress;
+    private LinearLayout guideContent;
 
     @Override
     protected void attachBaseContext(android.content.Context newBase) {
@@ -49,8 +52,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setStatusBarColor(Color.rgb(229, 241, 244));
-        getWindow().setNavigationBarColor(Color.rgb(238, 247, 248));
+        getWindow().setStatusBarColor(BACKGROUND);
+        getWindow().setNavigationBarColor(BACKGROUND);
         ForwardNotification.ensureChannel(this);
         setContentView(buildUi());
         loadState();
@@ -66,12 +69,16 @@ public class MainActivity extends Activity {
     private View buildUi() {
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
-        scroll.setBackgroundColor(Color.rgb(238, 247, 248));
+        scroll.setBackgroundColor(BACKGROUND);
         LinearLayout root = column();
         root.setPadding(dp(18), dp(22), dp(18), dp(30));
 
+        TextView brand = text("SF", 14, Color.WHITE, true);
+        brand.setGravity(Gravity.CENTER);
+        brand.setBackground(rounded(NAVY, Color.TRANSPARENT, 14, 0));
+        root.addView(brand, new LinearLayout.LayoutParams(dp(44), dp(44)));
         root.addView(text(R.string.app_tagline, 13, TEAL, true));
-        TextView title = text(R.string.app_title, 27, NAVY, true);
+        TextView title = text(R.string.app_title, 29, NAVY, true);
         title.setPadding(0, dp(5), 0, 0);
         root.addView(title);
         TextView subtitle = text(R.string.app_subtitle, 15, MUTED, false);
@@ -80,6 +87,7 @@ public class MainActivity extends Activity {
         root.addView(subtitle);
 
         LinearLayout statusCard = card();
+        statusCard.setBackground(rounded(Color.rgb(233, 242, 248), Color.rgb(191, 214, 229), 20, 1));
         LinearLayout statusRow = row();
         stateBadge = text(R.string.status_off, 13, Color.WHITE, true);
         stateBadge.setGravity(Gravity.CENTER);
@@ -90,6 +98,9 @@ public class MainActivity extends Activity {
         permissionStatus = text("", 13, MUTED, false);
         permissionStatus.setPadding(0, dp(12), 0, 0);
         statusCard.addView(permissionStatus);
+        setupProgress = text("", 13, NAVY, true);
+        setupProgress.setPadding(0, dp(10), 0, 0);
+        statusCard.addView(setupProgress);
         root.addView(statusCard, spacedCard());
 
         LinearLayout settingsCard = card();
@@ -119,6 +130,7 @@ public class MainActivity extends Activity {
         save.setOnClickListener(v -> saveSettings());
         settingsCard.addView(save);
         Button language = secondaryButton("Language / زبان / اللغة / Dil");
+        language.setContentDescription(getString(R.string.language_button));
         language.setOnClickListener(v -> showLanguageDialog());
         LinearLayout.LayoutParams languageParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp(50));
         languageParams.topMargin = dp(9);
@@ -141,15 +153,27 @@ public class MainActivity extends Activity {
         root.addView(actionsCard, spacedCard());
 
         LinearLayout guideCard = card();
-        guideCard.setBackground(rounded(Color.rgb(223, 242, 238), Color.TRANSPARENT, 16, 0));
-        guideCard.addView(text(R.string.guide_title, 17, NAVY, true));
-        guideCard.addView(guideStep("1", R.string.guide_1));
-        guideCard.addView(guideStep("2", R.string.guide_2));
-        guideCard.addView(guideStep("3", R.string.guide_3));
-        guideCard.addView(text(R.string.guide_device_title, 15, NAVY, true));
-        guideCard.addView(guideStep("4", R.string.guide_device_1));
-        guideCard.addView(guideStep("5", R.string.guide_device_2));
-        guideCard.addView(guideStep("6", R.string.guide_device_3));
+        Button guideToggle = secondaryButton(R.string.show_guide);
+        guideCard.addView(guideToggle);
+        guideContent = column();
+        guideContent.setVisibility(View.GONE);
+        guideContent.setPadding(0, dp(12), 0, 0);
+        guideContent.addView(text(R.string.guide_title, 17, NAVY, true));
+        guideContent.addView(guideStep("1", R.string.guide_1));
+        guideContent.addView(guideStep("2", R.string.guide_2));
+        guideContent.addView(guideStep("3", R.string.guide_3));
+        TextView phoneTips = text(R.string.guide_device_title, 15, NAVY, true);
+        phoneTips.setPadding(0, dp(18), 0, 0);
+        guideContent.addView(phoneTips);
+        guideContent.addView(guideStep("4", R.string.guide_device_1));
+        guideContent.addView(guideStep("5", R.string.guide_device_2));
+        guideContent.addView(guideStep("6", R.string.guide_device_3));
+        guideCard.addView(guideContent);
+        guideToggle.setOnClickListener(v -> {
+            boolean opening = guideContent.getVisibility() != View.VISIBLE;
+            guideContent.setVisibility(opening ? View.VISIBLE : View.GONE);
+            guideToggle.setText(opening ? R.string.hide_guide : R.string.show_guide);
+        });
         root.addView(guideCard, spacedCard());
 
         LinearLayout activityCard = card();
@@ -180,6 +204,11 @@ public class MainActivity extends Activity {
             Toast.makeText(this, getString(R.string.toast_enter_destination), Toast.LENGTH_LONG).show();
             return;
         }
+        if (!number.isEmpty() && !number.matches("^\\+?[0-9]{7,15}$")) {
+            destinationInput.setError(getString(R.string.invalid_destination));
+            destinationInput.requestFocus();
+            return;
+        }
         Prefs.setDestination(this, number);
         Prefs.setEnabled(this, enabled);
         Toast.makeText(this, enabled ? getString(R.string.toast_enabled) : getString(R.string.toast_saved), Toast.LENGTH_SHORT).show();
@@ -200,13 +229,13 @@ public class MainActivity extends Activity {
         }
         final int[] selected = {checked};
         new AlertDialog.Builder(this)
-                .setTitle("App language")
+                .setTitle(R.string.language_dialog_title)
                 .setSingleChoiceItems(labels, checked, (dialog, which) -> selected[0] = which)
-                .setPositiveButton("Apply", (dialog, which) -> {
+                .setPositiveButton(R.string.language_apply, (dialog, which) -> {
                     Prefs.setLanguage(this, codes[selected[0]]);
                     recreate();
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.language_cancel, null)
                 .show();
     }
 
@@ -224,10 +253,11 @@ public class MainActivity extends Activity {
             Toast.makeText(this, getString(R.string.toast_permissions_ready), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!shouldShowAnyPermissionRationale() && hasAnyCorePermissionMissing()) {
+        if (Prefs.werePermissionsRequested(this) && !shouldShowAnyPermissionRationale() && hasAnyCorePermissionMissing()) {
             showPermissionSettingsDialog();
             return;
         }
+        Prefs.markPermissionsRequested(this);
         requestPermissions(permissions.toArray(new String[0]), REQ_PERMISSIONS);
     }
 
@@ -262,12 +292,15 @@ public class MainActivity extends Activity {
         permissionStatus.setText(receive && send ? getString(R.string.status_ready) : getString(R.string.status_needs_permissions));
         permissionStatus.setTextColor(receive && send ? TEAL : Color.rgb(184, 92, 38));
         lastEvent.setText(Prefs.getLastEvent(this));
+        boolean numberReady = !destinationInput.getText().toString().trim().isEmpty();
+        int completed = (numberReady ? 1 : 0) + (receive && send ? 1 : 0) + (enabledSwitch.isChecked() ? 1 : 0);
+        setupProgress.setText(getString(R.string.setup_progress, completed));
         updateBadge(enabledSwitch.isChecked());
     }
 
     private void updateBadge(boolean enabled) {
         if (stateBadge == null) return;
-        stateBadge.setText(enabled ? "فعال" : "خاموش");
+        stateBadge.setText(enabled ? R.string.status_on : R.string.status_off);
         stateBadge.setBackground(rounded(enabled ? TEAL : Color.rgb(116, 133, 146), Color.TRANSPARENT, 20, 0));
     }
 
@@ -311,7 +344,7 @@ public class MainActivity extends Activity {
     private LinearLayout column() {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        layout.setLayoutDirection(isRtl() ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
         return layout;
     }
 
@@ -319,7 +352,7 @@ public class MainActivity extends Activity {
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.HORIZONTAL);
         layout.setGravity(Gravity.CENTER_VERTICAL);
-        layout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        layout.setLayoutDirection(isRtl() ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
         return layout;
     }
 
@@ -342,8 +375,8 @@ public class MainActivity extends Activity {
         view.setText(value);
         view.setTextSize(size);
         view.setTextColor(color);
-        view.setGravity(Gravity.RIGHT);
-        view.setTextDirection(View.TEXT_DIRECTION_RTL);
+        view.setGravity(isRtl() ? Gravity.RIGHT : Gravity.LEFT);
+        view.setTextDirection(isRtl() ? View.TEXT_DIRECTION_RTL : View.TEXT_DIRECTION_LTR);
         view.setTypeface(Typeface.create("sans", bold ? Typeface.BOLD : Typeface.NORMAL));
         return view;
     }
@@ -373,8 +406,10 @@ public class MainActivity extends Activity {
         button.setTextColor(Color.WHITE);
         button.setTypeface(Typeface.DEFAULT_BOLD);
         button.setAllCaps(false);
-        button.setBackground(rounded(TEAL, Color.TRANSPARENT, 13, 0));
-        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp(52)));
+        button.setMinHeight(dp(52));
+        button.setPadding(dp(16), dp(12), dp(16), dp(12));
+        button.setBackground(ripple(TEAL, Color.rgb(0, 96, 84), 14, false));
+        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         return button;
     }
 
@@ -389,8 +424,10 @@ public class MainActivity extends Activity {
         button.setTextColor(TEAL);
         button.setTypeface(Typeface.DEFAULT_BOLD);
         button.setAllCaps(false);
-        button.setBackground(rounded(Color.WHITE, TEAL, 13, 1));
-        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp(50)));
+        button.setMinHeight(dp(50));
+        button.setPadding(dp(16), dp(11), dp(16), dp(11));
+        button.setBackground(ripple(Color.WHITE, Color.rgb(226, 241, 239), 14, true));
+        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         return button;
     }
 
@@ -404,6 +441,15 @@ public class MainActivity extends Activity {
         drawable.setCornerRadius(dp(radiusDp));
         if (strokeDp > 0) drawable.setStroke(dp(strokeDp), stroke);
         return drawable;
+    }
+
+    private RippleDrawable ripple(int fill, int pressed, int radiusDp, boolean outlined) {
+        GradientDrawable content = rounded(fill, outlined ? TEAL : Color.TRANSPARENT, radiusDp, outlined ? 1 : 0);
+        return new RippleDrawable(ColorStateList.valueOf(pressed), content, null);
+    }
+
+    private boolean isRtl() {
+        return getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
     }
 
     private int dp(int value) {

@@ -13,8 +13,9 @@ public class SmsSentReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (getResultCode() != Activity.RESULT_OK) {
             String when = DateFormat.getDateTimeInstance().format(new Date());
-            Prefs.setLastEvent(context, "ارسال پیامک در " + when + " ناموفق بود.");
-            ForwardNotification.show(context, "خطا در انتقال پیامک", "پیامک منتقل‌شده ارسال نشد.");
+            Context localized = LocaleHelper.wrap(context);
+            Prefs.setLastEvent(context, localized.getString(R.string.event_failed, when));
+            ForwardNotification.show(context, localized.getString(R.string.notification_failed_title), localized.getString(R.string.notification_failed_body));
         }
     }
 }

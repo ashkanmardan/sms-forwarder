@@ -21,10 +21,10 @@ public final class ForwardNotification {
             if (nm == null) return;
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
-                    "وضعیت انتقال پیامک",
+                    context.getString(R.string.notification_channel_name),
                     NotificationManager.IMPORTANCE_LOW
             );
-            channel.setDescription("نتیجه انتقال پیامک‌های دریافتی را نمایش می‌دهد.");
+            channel.setDescription(context.getString(R.string.notification_channel_description));
             nm.createNotificationChannel(channel);
         }
     }

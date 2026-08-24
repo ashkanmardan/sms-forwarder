@@ -24,8 +24,9 @@ public class SmsReceiver extends BroadcastReceiver {
         if (destination == null || destination.trim().isEmpty()) return;
 
         if (context.checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            Prefs.setLastEvent(context, "پیامک دریافت شد، اما دسترسی ارسال پیامک داده نشده است.");
-            ForwardNotification.show(context, "پیامک منتقل نشد", "دسترسی ارسال پیامک داده نشده است.");
+            Context localized = LocaleHelper.wrap(context);
+            Prefs.setLastEvent(context, localized.getString(R.string.event_permission_failed));
+            ForwardNotification.show(context, localized.getString(R.string.notification_failed_title), localized.getString(R.string.notification_permission_body));
             return;
         }
 
@@ -35,7 +36,8 @@ public class SmsReceiver extends BroadcastReceiver {
         Map<String, StringBuilder> grouped = new LinkedHashMap<>();
         for (SmsMessage sms : messages) {
             String sender = sms.getDisplayOriginatingAddress();
-            if (sender == null) sender = "فرستنده ناشناس";
+            Context localized = LocaleHelper.wrap(context);
+            if (sender == null) sender = localized.getString(R.string.unknown_sender);
             grouped.computeIfAbsent(sender, k -> new StringBuilder()).append(sms.getDisplayMessageBody());
         }
 
@@ -45,23 +47,24 @@ public class SmsReceiver extends BroadcastReceiver {
             // Safety: do not forward messages coming from the configured destination itself.
             // This also helps prevent accidental loops if a user points the destination at this phone's own number.
             try {
-                if (!"فرستنده ناشناس".equals(sender) && PhoneNumberUtils.compare(sender, destination)) {
+                if (PhoneNumberUtils.compare(sender, destination)) {
                     continue;
                 }
             } catch (Exception ignored) {}
 
             String body = entry.getValue().toString();
-            String forwarded = "[انتقال پیامک]\nاز طرف: " + sender + "\n\n" + body;
+            Context localized = LocaleHelper.wrap(context);
+            String forwarded = localized.getString(R.string.forwarded_message, sender, body);
 
             try {
                 SmsSender.send(context, destination, forwarded);
                 String when = DateFormat.getDateTimeInstance().format(new Date());
-                Prefs.setLastEvent(context, "پیامکِ " + sender + " در " + when + " منتقل شد.");
-                ForwardNotification.show(context, "پیامک منتقل شد", "پیام دریافتی از " + sender + " ارسال شد.");
+                Prefs.setLastEvent(context, localized.getString(R.string.event_forwarded, sender, when));
+                ForwardNotification.show(context, localized.getString(R.string.notification_forwarded_title), localized.getString(R.string.notification_forwarded_body, sender));
             } catch (Exception e) {
                 String when = DateFormat.getDateTimeInstance().format(new Date());
-                Prefs.setLastEvent(context, "انتقال پیامک در " + when + " ناموفق بود.");
-                ForwardNotification.show(context, "خطا در انتقال پیامک", "پیامک دریافتی ارسال نشد.");
+                Prefs.setLastEvent(context, localized.getString(R.string.event_failed, when));
+                ForwardNotification.show(context, localized.getString(R.string.notification_failed_title), localized.getString(R.string.notification_failed_body));
             }
         }
     }
