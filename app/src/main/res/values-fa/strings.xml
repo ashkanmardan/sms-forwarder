@@ -23,6 +23,11 @@
     <string name="language_dialog_title">زبان برنامه</string>
     <string name="language_apply">اعمال</string>
     <string name="language_cancel">انصراف</string>
+    <string name="language_name_fa">فارسی</string>
+    <string name="language_name_en">English</string>
+    <string name="language_name_ar">العربية</string>
+    <string name="language_name_tr">Türkçe</string>
+    <string name="language_name_de">Deutsch</string>
 
     <string name="setup_title">راه‌اندازی سریع</string>
     <string name="setup_hint">اول دسترسی‌ها را تأیید کنید، بعد یک پیام آزمایشی بفرستید.</string>

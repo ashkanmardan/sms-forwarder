@@ -217,8 +217,14 @@ public class MainActivity extends Activity {
     }
 
     private void showLanguageDialog() {
-        String[] codes = {"fa", "en", "ar", "tr"};
-        String[] labels = {"فارسی", "English", "العربية", "Türkçe"};
+        String[] codes = {"fa", "en", "ar", "tr", "de"};
+        String[] labels = {
+                getString(R.string.language_name_fa),
+                getString(R.string.language_name_en),
+                getString(R.string.language_name_ar),
+                getString(R.string.language_name_tr),
+                getString(R.string.language_name_de)
+        };
         int checked = 0;
         String current = Prefs.getLanguage(this);
         for (int i = 0; i < codes.length; i++) {
@@ -232,11 +238,18 @@ public class MainActivity extends Activity {
                 .setTitle(R.string.language_dialog_title)
                 .setSingleChoiceItems(labels, checked, (dialog, which) -> selected[0] = which)
                 .setPositiveButton(R.string.language_apply, (dialog, which) -> {
-                    Prefs.setLanguage(this, codes[selected[0]]);
-                    recreate();
+                    applyLanguage(codes[selected[0]]);
                 })
                 .setNegativeButton(R.string.language_cancel, null)
                 .show();
+    }
+
+    private void applyLanguage(String code) {
+        Prefs.setLanguage(this, code);
+        Intent restart = getIntent();
+        finish();
+        startActivity(restart);
+        overridePendingTransition(0, 0);
     }
 
     private boolean hasCorePermissions() {

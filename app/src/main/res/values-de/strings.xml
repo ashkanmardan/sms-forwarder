@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SMS Forwarder</string>
+
+    <string name="app_tagline">Persoenische SMS-Weiterleitung</string>
+    <string name="app_title">Automatische SMS-Weiterleitung</string>
+    <string name="app_subtitle">Leitet jede eingehende SMS an die von dir gewaehlte Nummer weiter. Einfach, offline und direkt auf deinem Handy.</string>
+
+    <string name="status_label">Weiterleitungsstatus</string>
+    <string name="status_off">Aus</string>
+    <string name="status_on">Ein</string>
+    <string name="status_ready">Die wichtigsten Berechtigungen sind bereit</string>
+    <string name="status_needs_permissions">Zum Start SMS-Empfangs- und Sende-Berechtigungen erlauben</string>
+    <string name="setup_progress">Einrichtung: %1$d von 3 Schritten abgeschlossen</string>
+
+    <string name="destination_title">Zielnummer</string>
+    <string name="destination_hint">Beispiel: +491701234567</string>
+    <string name="destination_helper">Nummer mit Laendercode eingeben, zum Beispiel +49 oder +98.</string>
+    <string name="enabled_switch">SMS-Weiterleitung aktivieren</string>
+    <string name="save_button">Speichern und aktivieren</string>
+    <string name="invalid_destination">Bitte eine gueltige Telefonnummer mit 7 bis 15 Ziffern eingeben.</string>
+    <string name="language_button">App-Sprache aendern</string>
+    <string name="language_dialog_title">App-Sprache</string>
+    <string name="language_apply">Anwenden</string>
+    <string name="language_cancel">Abbrechen</string>
+    <string name="language_name_fa">فارسی</string>
+    <string name="language_name_en">English</string>
+    <string name="language_name_ar">العربية</string>
+    <string name="language_name_tr">Türkçe</string>
+    <string name="language_name_de">Deutsch</string>
+
+    <string name="setup_title">Schnelle Einrichtung</string>
+    <string name="setup_hint">Erst Berechtigungen erlauben, dann eine Testnachricht senden.</string>
+    <string name="permission_button">1. Erforderliche Berechtigungen erlauben</string>
+    <string name="test_button">2. Test-SMS senden</string>
+
+    <string name="guide_title">Kurzanleitung</string>
+    <string name="show_guide">Hilfe und Geraetetipps anzeigen</string>
+    <string name="hide_guide">Hilfe ausblenden</string>
+    <string name="guide_1">Zielnummer mit Laendercode eingeben.</string>
+    <string name="guide_2">SMS-Empfangs- und Sende-Berechtigungen erlauben.</string>
+    <string name="guide_3">Weiterleitung einschalten und Einstellungen speichern.</string>
+    <string name="guide_device_title">Hinweise fuer Geraete</string>
+    <string name="guide_device_1">Samsung: App-Info oeffnen, Berechtigungen antippen und SMS erlauben. Falls blockiert, im Drei-Punkte-Menue Restricted settings aktivieren.</string>
+    <string name="guide_device_2">Xiaomi: App-Info oeffnen, Other permissions antippen und SMS sowie Autostart erlauben, falls angezeigt.</string>
+    <string name="guide_device_3">Wenn Android SMS weiter blockiert, App nach dem Aendern der Berechtigungen erneut oeffnen.</string>
+
+    <string name="last_activity_title">Letzte Aktivitaet</string>
+    <string name="no_activity_yet">Bisher wurde noch keine SMS weitergeleitet.</string>
+    <string name="footer_note">Weitergeleitete Nachrichten werden ueber deine SIM gesendet und koennen SMS-Kosten verursachen. Der Nachrichtentext wird nicht ins Internet hochgeladen.</string>
+
+    <string name="toast_enter_destination">Bitte zuerst die Zielnummer eingeben.</string>
+    <string name="toast_saved">Einstellungen gespeichert.</string>
+    <string name="toast_enabled">SMS-Weiterleitung aktiviert.</string>
+    <string name="toast_permissions_ready">Alle erforderlichen Berechtigungen sind bereits erlaubt.</string>
+    <string name="toast_allow_send_first">Bitte zuerst SMS-Senden erlauben.</string>
+    <string name="test_confirm_title">Test-SMS senden?</string>
+    <string name="test_confirm_message">Eine echte SMS wird an %1$s gesendet und es koennen Gebuehren anfallen.</string>
+    <string name="test_confirm_positive">Senden</string>
+    <string name="test_confirm_negative">Abbrechen</string>
+    <string name="test_sms_body">[SMS Forwarder]
+Dies ist eine Testnachricht. Die App ist auf diesem Handy bereit.</string>
+    <string name="toast_test_sent">Test-SMS gesendet.</string>
+    <string name="toast_test_failed">SMS konnte nicht gesendet werden.</string>
+    <string name="toast_permissions_needed">Bitte zuerst SMS-Empfangs- und Sende-Berechtigungen erlauben.</string>
+
+    <string name="permission_dialog_title">SMS-Zugriff ist blockiert</string>
+    <string name="permission_dialog_message">Android hat den SMS-Zugriff fuer diese App blockiert. Oeffne die App-Einstellungen, gehe zu Permissions, erlaube SMS und aktiviere, falls vorhanden, auch Restricted settings.</string>
+    <string name="permission_dialog_positive">Einstellungen oeffnen</string>
+    <string name="permission_dialog_negative">Spaeter</string>
+    <string name="notification_channel_name">Weiterleitungsstatus</string>
+    <string name="notification_channel_description">Zeigt das Ergebnis der Weiterleitung eingehender Nachrichten.</string>
+    <string name="unknown_sender">Unbekannter Absender</string>
+    <string name="forwarded_message">[SMS Forwarder]\nVon: %1$s\n\n%2$s</string>
+    <string name="event_forwarded">Nachricht von %1$s wurde um %2$s weitergeleitet.</string>
+    <string name="event_failed">SMS-Weiterleitung ist um %1$s fehlgeschlagen.</string>
+    <string name="event_permission_failed">Eine SMS ist eingegangen, aber die Sende-Berechtigung fehlt.</string>
+    <string name="notification_forwarded_title">SMS weitergeleitet</string>
+    <string name="notification_forwarded_body">Die Nachricht von %1$s wurde gesendet.</string>
+    <string name="notification_failed_title">Weiterleitung fehlgeschlagen</string>
+    <string name="notification_failed_body">Die empfangene Nachricht konnte nicht gesendet werden.</string>
+    <string name="notification_permission_body">Die SMS-Sende-Berechtigung fehlt.</string>
+</resources>

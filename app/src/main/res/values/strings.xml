@@ -23,6 +23,11 @@
     <string name="language_dialog_title">App language</string>
     <string name="language_apply">Apply</string>
     <string name="language_cancel">Cancel</string>
+    <string name="language_name_fa">فارسی</string>
+    <string name="language_name_en">English</string>
+    <string name="language_name_ar">العربية</string>
+    <string name="language_name_tr">Türkçe</string>
+    <string name="language_name_de">Deutsch</string>
 
     <string name="setup_title">Quick setup</string>
     <string name="setup_hint">Allow permissions first, then send a test message.</string>

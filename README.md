@@ -2,6 +2,10 @@
 
 Simple Android app for forwarding incoming SMS messages to a chosen phone number.
 
+## معرفی فارسی
+
+SMS Forwarder یک برنامه ساده اندرویدی برای انتقال خودکار پیامک‌های دریافتی به یک شماره مقصد است. این برنامه روی خود گوشی کار می‌کند، آفلاین است، و برای راه‌اندازی سریع، تست داخلی و راهنمای مجوزها طراحی شده است.
+
 ## Overview
 
 SMS Forwarder is a lightweight Android app built for personal use on a phone you control. It receives incoming SMS messages and forwards them through the same device using the SIM card already installed on the phone.
@@ -21,6 +25,7 @@ SMS Forwarder is a lightweight Android app built for personal use on a phone you
 - English
 - Arabic
 - Turkish
+- German
 
 The app language can be changed from inside the app.
 
@@ -43,6 +48,13 @@ The current APK is included in this repository:
 - Samsung: open App info, then Permissions, then allow SMS. If blocked, open the three-dot menu and allow Restricted settings.
 - Xiaomi: open App info, then Other permissions, then allow SMS and Autostart if shown.
 - If Android still blocks SMS, reopen the app after changing permissions.
+
+## توضیحات فارسی
+
+- برنامه پیامک دریافتی را با سیم‌کارت همان گوشی به شماره مقصد می‌فرستد.
+- برای کار کردن، دسترسی دریافت و ارسال پیامک لازم است.
+- برای بعضی گوشی‌ها مثل سامسونگ و شیائومی، راهنمای داخل برنامه مسیر مجوزها را توضیح می‌دهد.
+- زبان برنامه از داخل خود اپ قابل تغییر است.
 
 ## Important Notes
 
