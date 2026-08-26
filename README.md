@@ -1,55 +1,64 @@
 # SMS Forwarder
 
-Simple Android app for forwarding incoming SMS to a chosen phone number.
+Simple Android app for forwarding incoming SMS messages to a chosen phone number.
 
-## What it does
+## Overview
 
-- Stores one destination number locally on the device
-- Forwards incoming SMS through the phone's SIM
-- Works offline
-- Shows a clear setup flow for permissions and testing
-- Supports multiple languages
-- Keeps only a short local status history
+SMS Forwarder is a lightweight Android app built for personal use on a phone you control. It receives incoming SMS messages and forwards them through the same device using the SIM card already installed on the phone.
 
-## Included languages
+## Features
+
+- Simple setup flow with clear on-screen guidance
+- In-app permission help for SMS access
+- Built-in test SMS action
+- Multi-language support
+- Offline-first behavior
+- Local-only storage for settings and status
+
+## Languages
 
 - Persian
 - English
 - Arabic
 - Turkish
 
-You can change the app language from the in-app language settings.
+The app language can be changed from inside the app.
 
-## Setup
+## How It Works
 
-1. Install the APK on a phone you control.
+1. Install the APK on an Android phone with SMS capability.
 2. Open the app and enter the destination number in international format.
 3. Allow SMS receive and send permissions.
-4. Turn forwarding on.
-5. Send a test SMS from inside the app.
+4. Enable forwarding.
+5. Run the built-in test SMS to confirm setup.
 
 ## APK
 
-The installable APK is included here:
+The current APK is included in this repository:
 
 `releases/SMSForwarder-v2.1.0.apk`
 
-## Device tips
+## Device Notes
 
-- Samsung: open App info, then Permissions, then allow SMS. If it is blocked, use the three-dot menu and enable Restricted settings.
+- Samsung: open App info, then Permissions, then allow SMS. If blocked, open the three-dot menu and allow Restricted settings.
 - Xiaomi: open App info, then Other permissions, then allow SMS and Autostart if shown.
-- If Android still blocks SMS, close and reopen the app after changing permissions.
+- If Android still blocks SMS, reopen the app after changing permissions.
 
-## Notes
+## Important Notes
 
-- Forwarded SMS may create carrier charges.
-- Message content is not uploaded to the internet.
-- This project is meant for personal use on a phone you control.
+- Forwarded messages are sent from the device SIM card.
+- Carrier SMS charges may apply.
+- Message content is not uploaded to any remote server.
+- This project is intended for personal sideload use, not Google Play publishing.
 
-## Copyright
+## Project Structure
 
-Ashkan Mardanpour
+- `app/src/main/java/com/ashkan/smsforwarder/`: app logic
+- `app/src/main/res/`: UI and localized strings
+- `releases/`: packaged APK files
 
-Email: hv1j@live.com
+## Contact
 
+Ashkan Mardanpour  
+Email: hv1j@live.com  
 Phone: +98 918 859 3897
