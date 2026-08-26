@@ -28,6 +28,12 @@ You can change the app language from the in-app language settings.
 4. Turn forwarding on.
 5. Send a test SMS from inside the app.
 
+## APK
+
+The installable APK is included here:
+
+`releases/SMSForwarder-v2.1.0.apk`
+
 ## Device tips
 
 - Samsung: open App info, then Permissions, then allow SMS. If it is blocked, use the three-dot menu and enable Restricted settings.
