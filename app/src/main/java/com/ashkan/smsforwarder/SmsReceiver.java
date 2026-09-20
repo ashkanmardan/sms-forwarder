@@ -21,7 +21,7 @@ public class SmsReceiver extends BroadcastReceiver {
         if (!Prefs.isEnabled(context)) return;
 
         String destination = Prefs.getDestination(context);
-        if (destination == null || destination.trim().isEmpty()) return;
+        if (!DestinationValidator.isValid(destination)) return;
 
         if (context.checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             Context localized = LocaleHelper.wrap(context);
@@ -35,11 +35,19 @@ public class SmsReceiver extends BroadcastReceiver {
 
         Map<String, StringBuilder> grouped = new LinkedHashMap<>();
         for (SmsMessage sms : messages) {
+            if (sms == null || sms.getDisplayMessageBody() == null) continue;
             String sender = sms.getDisplayOriginatingAddress();
             Context localized = LocaleHelper.wrap(context);
             if (sender == null) sender = localized.getString(R.string.unknown_sender);
-            grouped.computeIfAbsent(sender, k -> new StringBuilder()).append(sms.getDisplayMessageBody());
+            StringBuilder group = grouped.get(sender);
+            if (group == null) {
+                group = new StringBuilder();
+                grouped.put(sender, group);
+            }
+            group.append(sms.getDisplayMessageBody());
         }
+
+        if (grouped.isEmpty()) return;
 
         for (Map.Entry<String, StringBuilder> entry : grouped.entrySet()) {
             String sender = entry.getKey();

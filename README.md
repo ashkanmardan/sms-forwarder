@@ -1,76 +1,72 @@
 # SMS Forwarder
 
-Simple Android app for forwarding incoming SMS messages to a chosen phone number.
-
-## معرفی فارسی
-
-SMS Forwarder یک برنامه ساده اندرویدی برای انتقال خودکار پیامک‌های دریافتی به یک شماره مقصد است. این برنامه روی خود گوشی کار می‌کند، آفلاین است، و برای راه‌اندازی سریع، تست داخلی و راهنمای مجوزها طراحی شده است.
+[![Android checks](https://github.com/ashkanmardan/sms-forwarder/actions/workflows/build-apk.yml/badge.svg)](https://github.com/ashkanmardan/sms-forwarder/actions/workflows/build-apk.yml)
 
 ## Overview
 
-SMS Forwarder is a lightweight Android app built for personal use on a phone you control. It receives incoming SMS messages and forwards them through the same device using the SIM card already installed on the phone.
+SMS Forwarder is a small Java Android app that forwards incoming SMS from a phone you control to one configured number through that phone's SIM and carrier. It is intended for authorized personal use. Forwarding is off by default.
 
 ## Features
 
-- Simple setup flow with clear on-screen guidance
-- In-app permission help for SMS access
-- Built-in test SMS action
-- Multi-language support
-- Offline-first behavior
-- Local-only storage for settings and status
+- Configure one destination and enable or disable forwarding.
+- Confirm and send a built-in synthetic test SMS.
+- See permission guidance and a short status message.
+- Use Persian, English, Arabic, Turkish, or German in the app.
 
-## Languages
+## Screenshots
 
-- Persian
-- English
-- Arabic
-- Turkish
-- German
+No verified, redacted screenshots have been supplied yet. See [device testing](docs/DEVICE_TEST_REPORT.md).
 
-The app language can be changed from inside the app.
+## How it works
 
-## How It Works
+Android delivers `SMS_RECEIVED` to `SmsReceiver`. If forwarding is enabled, a valid destination is saved, and `SEND_SMS` is granted, the app formats the received sender and message body and sends a multipart SMS with `SmsManager`. The app skips messages whose sender compares equal to the destination. That check is only partial loop protection; see [security notes](SECURITY.md).
 
-1. Install the APK on an Android phone with SMS capability.
-2. Open the app and enter the destination number in international format.
-3. Allow SMS receive and send permissions.
-4. Enable forwarding.
-5. Run the built-in test SMS to confirm setup.
+## Requirements
 
-## APK
+- Android 6.0 or newer (API 23), a phone with SMS capability, and a working SIM/service.
+- SMS receive and send permission. Carrier fees may apply.
+- For building: JDK 17, Android SDK 35, and the checked-in Gradle wrapper.
 
-The current APK is included in this repository:
+## Installation and download
 
-`releases/SMSForwarder-v2.1.0.apk`
+The app is intended for sideloading. A verified signed GitHub Release is **not available yet**. When one is published, use [GitHub Releases](https://github.com/ashkanmardan/sms-forwarder/releases/latest). The APK in `releases/` is a historical debug-signed file whose embedded version disagrees with its filename; do not treat it as an official release.
 
-## Device Notes
+To build a debug APK from this source, run `./gradlew assembleDebug` (`gradlew.bat assembleDebug` on Windows). The output is `app/build/outputs/apk/debug/app-debug.apk`. Debug builds are for testing only.
 
-- Samsung: open App info, then Permissions, then allow SMS. If blocked, open the three-dot menu and allow Restricted settings.
-- Xiaomi: open App info, then Other permissions, then allow SMS and Autostart if shown.
-- If Android still blocks SMS, reopen the app after changing permissions.
+## Permissions
 
-## توضیحات فارسی
+| Permission | Purpose |
+| --- | --- |
+| `RECEIVE_SMS` | Receive incoming SMS broadcasts for forwarding. |
+| `SEND_SMS` | Send forwarded and user-confirmed test SMS. |
+| `POST_NOTIFICATIONS` | Show forwarding/failure status on Android 13+. Forwarding itself does not require this permission. |
 
-- برنامه پیامک دریافتی را با سیم‌کارت همان گوشی به شماره مقصد می‌فرستد.
-- برای کار کردن، دسترسی دریافت و ارسال پیامک لازم است.
-- برای بعضی گوشی‌ها مثل سامسونگ و شیائومی، راهنمای داخل برنامه مسیر مجوزها را توضیح می‌دهد.
-- زبان برنامه از داخل خود اپ قابل تغییر است.
+The manifest also declares required telephony hardware. Permission requests occur in the app UI; a denied permission can stop forwarding. Android and carrier restrictions may apply.
 
-## Important Notes
+## Privacy and security
 
-- Forwarded messages are sent from the device SIM card.
-- Carrier SMS charges may apply.
-- Message content is not uploaded to any remote server.
-- This project is intended for personal sideload use, not Google Play publishing.
+The destination and enabled state are saved in private `SharedPreferences`; the app does not save full SMS bodies in its own preferences. The source declares no Internet permission and contains no analytics or server client. Sending forwarded SMS **does transmit its content through the cellular carrier and to the destination**. The app is not an end-to-end encrypted messenger. Read the [privacy notice](docs/PRIVACY.md) and [security policy](SECURITY.md) before use.
 
-## Project Structure
+## Supported languages
 
-- `app/src/main/java/com/ashkan/smsforwarder/`: app logic
-- `app/src/main/res/`: UI and localized strings
-- `releases/`: packaged APK files
+Persian, English, Arabic, Turkish, and German resource sets are present. The initial language follows Android's resource selection until the user chooses one in the app.
 
-## Contact
+## Build from source and testing
 
-Ashkan Mardanpour  
-Email: hv1j@live.com  
-Phone: +98 918 859 3897
+`./gradlew clean lint test assembleDebug` runs the local checks. See [testing](docs/TESTING.md) for coverage and device gaps. The same checks run in [CI](.github/workflows/build-apk.yml); the badge reflects GitHub's live result, which must be checked separately from a local build.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md), [roadmap](ROADMAP.md), and [code of conduct](CODE_OF_CONDUCT.md). Never include real SMS bodies, phone numbers, signing keys, or private identifiers in issues or pull requests.
+
+## Responsible use and limitations
+
+Use only on a device you control, with appropriate authorization and consent. Do not use it for covert monitoring. There is no verified production signing key or device QA yet. The app uses the default `SmsManager`, has limited loop detection and no durable duplicate suppression, and has not been verified on dual-SIM phones. See [audit](docs/OPEN_SOURCE_AUDIT.md).
+
+## License and maintainer
+
+Project-owned source and documentation are offered under the [MIT License](LICENSE). Android SDK and Gradle components retain their own licenses. Maintained by [Ashkan Mardanpour](https://github.com/ashkanmardan).
+
+### فارسی
+
+این برنامه پیامک‌های دریافتی را با سیم‌کارت گوشی به شماره‌ای که کاربر تنظیم کرده می‌فرستد. فقط روی دستگاه تحت کنترل خود و با رضایت و مجوز لازم استفاده کنید. پیامک از طریق اپراتور و به شمارهٔ مقصد منتقل می‌شود. فایل موجود در پوشهٔ `releases` انتشار رسمی و تأییدشده نیست.

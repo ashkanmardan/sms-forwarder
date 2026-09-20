@@ -204,7 +204,7 @@ public class MainActivity extends Activity {
             Toast.makeText(this, getString(R.string.toast_enter_destination), Toast.LENGTH_LONG).show();
             return;
         }
-        if (!number.isEmpty() && !number.matches("^\\+?[0-9]{7,15}$")) {
+        if (!number.isEmpty() && !DestinationValidator.isValid(number)) {
             destinationInput.setError(getString(R.string.invalid_destination));
             destinationInput.requestFocus();
             return;
@@ -246,7 +246,7 @@ public class MainActivity extends Activity {
 
     private void applyLanguage(String code) {
         Prefs.setLanguage(this, code);
-        Intent restart = getIntent();
+        Intent restart = new Intent(this, MainActivity.class);
         finish();
         startActivity(restart);
         overridePendingTransition(0, 0);
@@ -278,6 +278,11 @@ public class MainActivity extends Activity {
         String destination = destinationInput.getText().toString().trim();
         if (destination.isEmpty()) {
             Toast.makeText(this, getString(R.string.toast_enter_destination), Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (!DestinationValidator.isValid(destination)) {
+            destinationInput.setError(getString(R.string.invalid_destination));
+            destinationInput.requestFocus();
             return;
         }
         if (checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {

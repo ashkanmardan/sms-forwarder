@@ -1,0 +1,59 @@
+name: Bug report
+description: Report an app problem without sharing private data
+body:
+  - type: markdown
+    attributes:
+      value: "**DO NOT POST REAL SMS CONTENT OR PHONE NUMBERS.** Redact all private data from logs and screenshots."
+  - type: input
+    id: version
+    attributes:
+      label: App version
+    validations:
+      required: true
+  - type: input
+    id: android
+    attributes:
+      label: Android version
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Phone manufacturer and model
+    validations:
+      required: true
+  - type: dropdown
+    id: sim
+    attributes:
+      label: SIM configuration
+      options: [Single SIM, Dual SIM, Unknown]
+  - type: textarea
+    id: state
+    attributes:
+      label: Permission and forwarding state
+      description: State whether RECEIVE_SMS, SEND_SMS and notifications are granted, and whether forwarding is enabled.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps using synthetic data
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Redacted logs (optional)
+      description: Remove SMS bodies, phone numbers, device identifiers and account details.

@@ -1,0 +1,24 @@
+name: Feature request
+description: Suggest an improvement consistent with responsible use
+body:
+  - type: markdown
+    attributes:
+      value: "**DO NOT POST REAL SMS CONTENT OR PHONE NUMBERS.** Stealth or unauthorized monitoring requests are out of scope."
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy and permission impact
+    validations:
+      required: true

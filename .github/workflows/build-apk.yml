@@ -1,9 +1,13 @@
-name: Build APK
+name: Android checks
 
 on:
   workflow_dispatch:
   push:
-    branches: [ main, master ]
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -15,10 +19,16 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.10.2'
-      - run: gradle :app:assembleDebug
+      - name: Clean
+        run: ./gradlew clean
+      - name: Lint
+        run: ./gradlew lint
+      - name: Unit tests
+        run: ./gradlew test
+      - name: Debug APK
+        run: ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: sms-forwarder-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error

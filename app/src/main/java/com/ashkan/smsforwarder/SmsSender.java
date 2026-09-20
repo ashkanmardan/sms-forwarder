@@ -12,8 +12,8 @@ public final class SmsSender {
     private SmsSender() {}
 
     public static void send(Context context, String destination, String text) {
-        if (destination == null || destination.trim().isEmpty()) {
-            throw new IllegalArgumentException("Destination number is empty");
+        if (!DestinationValidator.isValid(destination)) {
+            throw new IllegalArgumentException("Destination number is invalid");
         }
 
         SmsManager manager = SmsManager.getDefault();
