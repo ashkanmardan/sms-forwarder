@@ -8,7 +8,7 @@ Reviewed the five reachable Git commits, tracked files, Android manifest, all se
 
 Resources contain Persian, English, Arabic, Turkish, and German. Java source targets 17. The Gradle app uses namespace `com.ashkan.smsforwarder`, application ID `com.ashkan.smsforwarder.persian`, compile/target SDK 35, min SDK 23, and AGP 8.7.3. Gradle 8.14.3 wrapper was added (AGP 8.7 requires at least Gradle 8.9). JUnit is test-only; there are no app runtime third-party dependencies. The launcher icon is a repository vector and no externally attributed asset is tracked. Git history gives no independent proof of ownership for translations or assets, so imported material must be reviewed if discovered.
 
-The previous GitHub Actions workflow used globally provisioned Gradle and only built debug. All five visible runs on the old workflow failed; the current manifest `package` attribute caused the reported AGP error. The replacement workflow runs wrapper clean, lint, test, and debug build for pushes to main, pull requests, and manual dispatch. Its remote result requires a pushed branch/PR to verify.
+The previous GitHub Actions workflow used globally provisioned Gradle and only built debug. All five visible runs on the old workflow failed; the current manifest `package` attribute caused the reported AGP error. The replacement workflow runs wrapper clean, lint, test, and debug build for pushes to main, pull requests, and manual dispatch. Its first [draft PR run](https://github.com/ashkanmardan/sms-forwarder/actions/runs/35514550554) passed.
 
 ## Findings
 
@@ -30,7 +30,7 @@ The manifest declares only `RECEIVE_SMS`, `SEND_SMS`, and `POST_NOTIFICATIONS`, 
 
 ## Secret and privacy scan
 
-A value-redacted scan of all five reachable text revisions and the working tree found a personal email and phone candidate only in old README revisions; the current README has neither. Number-shaped values in localization resources occur in `destination_hint` examples; current test/doc number candidates are synthetic fixtures or dates. No credential assignments, private-key markers, signing files, or private-URL candidates were found in the scanned text. This heuristic scan is not proof that no secret exists, and binary APK content was not treated as source text. No history rewrite was performed.
+A value-redacted scan of all five original reachable text revisions and the working tree found a personal email and phone candidate only in old README revisions; the current README has neither. One distinct email identity also appears in Git commit metadata. Number-shaped values in localization resources occur in `destination_hint` examples; current test/doc number candidates are synthetic fixtures or dates. No credential assignments, private-key markers, signing files, or private-URL candidates were found in the scanned text. This heuristic scan is not proof that no secret exists, and binary APK content was not treated as source text. No history rewrite was performed.
 
 ## Version and release decision
 

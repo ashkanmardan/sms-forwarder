@@ -2,7 +2,7 @@
 
 ## Repository state
 
-Work is on `chore/open-source-readiness` from `a819975`. Five reachable commits and all tracked source files were audited. This document describes the reviewed working tree; see Git for the exact final commit and branch publication status. No history rewrite or force-push was performed.
+Work is on `chore/open-source-readiness` from `a819975`, published as [draft PR #1](https://github.com/ashkanmardan/sms-forwarder/pull/1). Five original reachable commits and all tracked source files were audited. No history rewrite or force-push was performed. Relevant GitHub repository topics were set.
 
 ## License
 
@@ -10,7 +10,7 @@ MIT license added for project-owned material, with a [scope notice](NOTICE.md). 
 
 ## CI
 
-The old public `Build APK` workflow has five visible failed runs. The replacement uses the checked-in Gradle 8.14.3 wrapper and runs clean, lint, tests, and debug build on main pushes, pull requests, and manual dispatch. A local equivalent passed. New workflow status on GitHub must be verified after the branch is pushed and a PR triggers it.
+The old public `Build APK` workflow has five visible failed runs. The replacement uses the checked-in Gradle 8.14.3 wrapper and runs clean, lint, tests, and debug build on main pushes, pull requests, and manual dispatch. A local equivalent passed. [Draft PR #1's workflow](https://github.com/ashkanmardan/sms-forwarder/actions/runs/35514550554) completed successfully on the implementation commit.
 
 ## Tests
 
@@ -64,7 +64,7 @@ Production key provenance, device tests, remote CI result, and source-to-APK ver
 
 ## Recommended next actions
 
-1. Publish this branch and obtain a passing GitHub PR workflow before merging.
+1. Review draft PR #1 and require the final head commit's GitHub workflow to pass before merging.
 2. Maintainer: identify the existing intended production key, its owner, secure backup, and certificate fingerprint; if none exists, explicitly authorize creation of a persistent key and agree how it will be stored. Do not send key bytes or passwords in an issue.
 3. Build and verify the source-matched signed 2.1.1 APK, then perform the synthetic-data device checklist and resolve release-blocking findings.
 4. Only then create a public GitHub Release with signed APK and SHA256SUMS, and consider removing the legacy APK in a normal later commit.
