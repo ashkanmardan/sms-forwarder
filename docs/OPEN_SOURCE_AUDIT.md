@@ -14,9 +14,9 @@ The previous GitHub Actions workflow used globally provisioned Gradle and only b
 
 | Severity | Finding and disposition |
 | --- | --- |
-| **CRITICAL** | No persistent production signing key or provenance was established. The historical `releases/SMSForwarder-v2.1.0.apk` verifies as **debug-signed** and embeds `2.0.0`/code 2, not its filename's `2.1.0` or current source. Do not publish it as a release. |
+| **CRITICAL** | At the initial audit no persistent production signing key or provenance was established. A new key was subsequently created after explicit maintainer authorization, but portable backup and signed-build verification remain open. The historical `releases/SMSForwarder-v2.1.0.apk` verifies as **debug-signed** and embeds `2.0.0`/code 2, not its filename's `2.1.0` or current source. Do not publish it as a release. |
 | **HIGH** | No real-device QA of a signed APK. SMS delivery, permissions, multipart behavior, and dual-SIM handling remain unverified. Release gate remains closed. |
-| **HIGH** | Loop prevention checks only sender equals destination; reciprocal forwarding and duplicate broadcasts can create repeated sends/cost. No durable duplicate suppression or rate limit. Documented for device review. |
+| **HIGH** | Loop prevention checks only sender equals destination; this usually stops a direct two-phone loop, but multi-hop cycles or sender-ID mismatches and duplicate broadcasts can create repeated sends/cost. No durable duplicate suppression or rate limit. Documented for device review. |
 | **MEDIUM** | Receiver previously used `Map.computeIfAbsent`, unavailable on API 23 despite minSdk 23. Replaced with API-compatible map operations. Null SMS objects/bodies are skipped. |
 | **MEDIUM** | Destination validation was only at UI save, leaving the test and sender paths inconsistent. Shared validation now guards save, test, receive, and send; unit tests cover valid and malformed formats. |
 | **MEDIUM** | Destination and last sender status are stored without app-level encryption in private preferences. Backup is disabled; device compromise or visible notifications remain risks. |
@@ -27,6 +27,8 @@ The previous GitHub Actions workflow used globally provisioned Gradle and only b
 | **OPTIONAL** | Add real, redacted screenshots, instrumentation tests, accessibility review, and dependency/security automation after device QA. |
 
 The manifest declares only `RECEIVE_SMS`, `SEND_SMS`, and `POST_NOTIFICATIONS`, plus required telephony hardware. All are explained in README. `allowBackup=false` is set. No unused sensitive permission was proven. The `releases/` APK remains as historical evidence until a verified GitHub Release exists; it should not be linked as a download.
+
+The separate desktop checkout contains uncommitted 2.2.0 work with remote SMS command handling. Its optional text-secret check and sender-number matching are not sufficient evidence for safe public remote control; it has no corresponding automated security tests. That work is excluded from this 2.1.1 release candidate until separately reviewed and hardened. No files in that checkout were changed during this audit.
 
 ## Secret and privacy scan
 

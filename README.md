@@ -61,7 +61,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [roadmap](ROADMAP.md), and [code of cond
 
 ## Responsible use and limitations
 
-Use only on a device you control, with appropriate authorization and consent. Do not use it for covert monitoring. There is no verified production signing key or device QA yet. The app uses the default `SmsManager`, has limited loop detection and no durable duplicate suppression, and has not been verified on dual-SIM phones. See [audit](docs/OPEN_SOURCE_AUDIT.md).
+Use only on a device you control, with appropriate authorization and consent. Do not use it for covert monitoring. A new production signing key exists locally, but its portable backup and a signed APK/device QA are not verified yet. The app uses the default `SmsManager`, has limited loop detection and no durable duplicate suppression, and has not been verified on dual-SIM phones. See [audit](docs/OPEN_SOURCE_AUDIT.md).
 
 ## License and maintainer
 

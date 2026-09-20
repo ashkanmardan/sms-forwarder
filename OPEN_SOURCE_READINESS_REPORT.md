@@ -18,7 +18,7 @@ The old public `Build APK` workflow has five visible failed runs. The replacemen
 
 ## Build
 
-Local `clean lint test assembleDebug` succeeded on JDK 17 and Android SDK 35. Lint has **0 errors and 12 warnings**. Warnings include target API age, locale handling, RTL/accessibility details, data extraction rules, and minor SDK/resource observations. None was disabled to force a pass; they remain follow-up work.
+The earlier local `clean lint test assembleDebug` run succeeded with Android SDK 35; the GitHub PR workflow also passed. Lint has **0 errors and 12 warnings**. Warnings include target API age, locale handling, RTL/accessibility details, data extraction rules, and minor SDK/resource observations. None was disabled to force a pass; they remain follow-up work. A later signed-release attempt in the restricted Codex session could not complete because the local Java compiler received access-denied errors while closing Android SDK/classpath JARs; no signed APK was produced or claimed.
 
 ## APK
 
@@ -28,7 +28,7 @@ The tracked `releases/SMSForwarder-v2.1.0.apk` is historical: embedded version `
 
 ## Signing
 
-No persistent production key or signing configuration was found in the repository or related local project copy. No key was created or replaced. A signed release build was **not run** because the stated signing stop condition applies. See [release procedure](docs/RELEASING.md).
+A new persistent production key was created outside the repository after explicit maintainer authorization. Its certificate fingerprint was verified and differs from the historical debug certificate. The password is stored in a machine-protected Windows DPAPI file with restricted file access; recovery on another PC requires a separate password-manager copy. The Gradle release configuration now reads credentials from environment variables. **Portable backup and signed APK verification are still open**, so publication remains stopped. See [release procedure](docs/RELEASING.md).
 
 ## Device QA
 
@@ -56,7 +56,7 @@ GitHub's public releases API returned no releases at audit time. **No public rel
 
 ## Remaining risks
 
-Production key provenance, device tests, remote CI result, and source-to-APK verification remain release gates. Previous README contact details remain in public Git history under the no-rewrite constraint. A heuristic scan found no credential assignments, private-key markers, or signing files in reachable text; this is not a guarantee.
+Portable key/password backup, device tests, CI on the latest unpushed signing-configuration changes, and source-to-APK verification remain release gates. The separate uncommitted desktop 2.2.0 work has an inadequately reviewed remote-SMS-command path and is excluded from this candidate. Previous README contact details remain in public Git history under the no-rewrite constraint. A heuristic scan found no credential assignments, private-key markers, or signing files in reachable text; this is not a guarantee.
 
 ## OSS program readiness
 
@@ -65,6 +65,6 @@ Production key provenance, device tests, remote CI result, and source-to-APK ver
 ## Recommended next actions
 
 1. Review draft PR #1 and require the final head commit's GitHub workflow to pass before merging.
-2. Maintainer: identify the existing intended production key, its owner, secure backup, and certificate fingerprint; if none exists, explicitly authorize creation of a persistent key and agree how it will be stored. Do not send key bytes or passwords in an issue.
-3. Build and verify the source-matched signed 2.1.1 APK, then perform the synthetic-data device checklist and resolve release-blocking findings.
+2. Maintainer: save the new keystore to a separate offline location and save its recovery password in a password manager. Do not send either through GitHub issues or chat.
+3. Re-run CI after publishing the signing-configuration changes, then build and verify the source-matched signed 2.1.1 APK in an unrestricted environment. Perform the synthetic-data device checklist and resolve release-blocking findings.
 4. Only then create a public GitHub Release with signed APK and SHA256SUMS, and consider removing the legacy APK in a normal later commit.

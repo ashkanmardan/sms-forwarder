@@ -1,5 +1,17 @@
 apply plugin: 'com.android.application'
 
+def releaseStoreFile = System.getenv('SMSF_RELEASE_STORE_FILE')
+def releaseStorePassword = System.getenv('SMSF_RELEASE_STORE_PASSWORD')
+def releaseKeyAlias = System.getenv('SMSF_RELEASE_KEY_ALIAS')
+def releaseKeyPassword = System.getenv('SMSF_RELEASE_KEY_PASSWORD')
+def releaseSigningReady = [releaseStoreFile, releaseStorePassword, releaseKeyAlias, releaseKeyPassword].every { it }
+def releasePackageRequested = gradle.startParameter.taskNames.any {
+    it.toLowerCase().matches('.*(assemblerelease|bundlerelease|packagerelease).*')
+}
+if (releasePackageRequested && !releaseSigningReady) {
+    throw new GradleException('Release signing environment is incomplete; no release package will be built.')
+}
+
 android {
     namespace 'com.ashkan.smsforwarder'
     compileSdk 35
@@ -12,8 +24,20 @@ android {
         versionName '2.1.1'
     }
 
+    signingConfigs {
+        release {
+            if (releaseSigningReady) {
+                storeFile file(releaseStoreFile)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

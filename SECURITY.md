@@ -12,7 +12,7 @@ Use [GitHub private vulnerability reporting](https://github.com/ashkanmardan/sms
 
 - The exported SMS receiver requires `android.permission.BROADCAST_SMS`; the sent-result receiver is not exported. The launcher activity is exported as required for launch. Android delivers SMS broadcasts and enforces the protected broadcast permission.
 - The app checks `SEND_SMS` before forwarding. A valid destination is required at save, test, receive, and send boundaries. It does not verify ownership of the destination number.
-- A message from a sender matching the destination is skipped. This does **not** prevent a two-phone relay loop when each phone forwards messages from a different sender, or forged sender data. Do not configure reciprocal forwarding.
+- A message from a sender matching the destination is skipped. This normally stops a direct two-phone loop when sender IDs compare correctly, but does **not** reliably stop multi-hop cycles or number-format/caller-ID mismatches. Do not configure forwarding cycles.
 - There is no durable duplicate detection or rate limit. Retransmitted broadcasts, device/carrier behavior, or repeated sends may cause duplicates and charges.
 - Multipart parts are appended by sender in broadcast order; incomplete, malformed, or cross-message batches may be reconstructed incorrectly. Null message objects and null bodies are skipped. This path needs device-level tests.
 - The app uses `SmsManager.getDefault()` and does not select a SIM explicitly; dual-SIM behavior is unverified.
