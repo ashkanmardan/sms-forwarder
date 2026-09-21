@@ -61,7 +61,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [roadmap](ROADMAP.md), and [code of cond
 
 ## Responsible use and limitations
 
-Use only on a device you control, with appropriate authorization and consent. Do not use it for covert monitoring. A new production signing key exists locally, but its portable backup and a signed APK/device QA are not verified yet. The app uses the default `SmsManager`, has limited loop detection and no durable duplicate suppression, and has not been verified on dual-SIM phones. See [audit](docs/OPEN_SOURCE_AUDIT.md).
+Use only on a device you control, with appropriate authorization and consent. Do not use it for covert monitoring. The current signed public release is [v2.1.1 on GitHub Releases](https://github.com/ashkanmardan/sms-forwarder/releases/tag/v2.1.1); verify downloads with its `SHA256SUMS.txt`. The app uses the default `SmsManager`, has limited loop detection and no durable duplicate suppression, and has not been verified on dual-SIM phones. See [audit](docs/OPEN_SOURCE_AUDIT.md).
 
 ## License and maintainer
 
@@ -69,4 +69,4 @@ Project-owned source and documentation are offered under the [MIT License](LICEN
 
 ### فارسی
 
-این برنامه پیامک‌های دریافتی را با سیم‌کارت گوشی به شماره‌ای که کاربر تنظیم کرده می‌فرستد. فقط روی دستگاه تحت کنترل خود و با رضایت و مجوز لازم استفاده کنید. پیامک از طریق اپراتور و به شمارهٔ مقصد منتقل می‌شود. فایل موجود در پوشهٔ `releases` انتشار رسمی و تأییدشده نیست.
+این برنامه پیامک‌های دریافتی را با سیم‌کارت گوشی به شماره‌ای که کاربر تنظیم کرده می‌فرستد. فقط روی دستگاه تحت کنترل خود و با رضایت و مجوز لازم استفاده کنید. پیامک از طریق اپراتور منتقل می‌شود و ممکن است هزینه داشته باشد. نسخهٔ رسمی فعلی `v2.1.1` است و باید از [GitHub Releases](https://github.com/ashkanmardan/sms-forwarder/releases/latest) دانلود شود؛ فایل APK داخل سورس نگهداری نمی‌شود.

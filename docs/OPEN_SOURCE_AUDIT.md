@@ -26,7 +26,7 @@ The previous GitHub Actions workflow used globally provisioned Gradle and only b
 | **LOW** | Lint warnings remain to be evaluated separately; a passing lint task does not mean warning-free. |
 | **OPTIONAL** | Add real, redacted screenshots, instrumentation tests, accessibility review, and dependency/security automation after device QA. |
 
-The manifest declares only `RECEIVE_SMS`, `SEND_SMS`, and `POST_NOTIFICATIONS`, plus required telephony hardware. All are explained in README. `allowBackup=false` is set. No unused sensitive permission was proven. The `releases/` APK remains as historical evidence until a verified GitHub Release exists; it should not be linked as a download.
+The manifest declares only `RECEIVE_SMS`, `SEND_SMS`, and `POST_NOTIFICATIONS`, plus required telephony hardware. All are explained in README. `allowBackup=false` is set. No unused sensitive permission was proven. The historical APK described by this audit was removed from the current tree after v2.1.1 publication and is not a download source.
 
 The separate desktop checkout contains uncommitted 2.2.0 work with remote SMS command handling. Its optional text-secret check and sender-number matching are not sufficient evidence for safe public remote control; it has no corresponding automated security tests. That work is excluded from this 2.1.1 release candidate until separately reviewed and hardened. No files in that checkout were changed during this audit.
 
