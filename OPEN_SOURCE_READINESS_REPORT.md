@@ -48,7 +48,7 @@ The protected exported SMS receiver, private sent-result receiver, permissions, 
 
 ## Screenshots
 
-No actual app screenshots were supplied or captured, so none were added.
+Four redacted screenshots from the successful real-device smoke test are included in [`docs/screenshots/`](docs/screenshots/). Phone numbers and message text were blurred before inclusion.
 
 ## GitHub Release
 

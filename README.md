@@ -15,7 +15,7 @@ SMS Forwarder is a small Java Android app that forwards incoming SMS from a phon
 
 ## Screenshots
 
-No verified, redacted screenshots have been supplied yet. See [device testing](docs/DEVICE_TEST_REPORT.md).
+Redacted screenshots from a successful real-device smoke test are in [`docs/screenshots/`](docs/screenshots/). No phone numbers or message text are intentionally included.
 
 ## How it works
 
