@@ -32,7 +32,7 @@ A new persistent production key was created outside the repository after explici
 
 ## Device QA
 
-Not run: `adb devices` listed no attached device. The exact signed release APK does not exist. See [device checklist](docs/DEVICE_TEST_REPORT.md).
+The maintainer reports a successful phone test, and four redacted screenshots document setup completion, enabled forwarding, permissions readiness, language selection, and the test-message/help flow. The exact signed release APK was not the artifact under test, and no detailed per-case device log was supplied. See [device checklist](docs/DEVICE_TEST_REPORT.md).
 
 ## Privacy
 
@@ -56,7 +56,7 @@ GitHub's public releases API returned no releases at audit time. **No public rel
 
 ## Remaining risks
 
-Portable key/password backup, device tests, CI on the latest unpushed signing-configuration changes, and source-to-APK verification remain release gates. The separate uncommitted desktop 2.2.0 work has an inadequately reviewed remote-SMS-command path and is excluded from this candidate. Previous README contact details remain in public Git history under the no-rewrite constraint. A heuristic scan found no credential assignments, private-key markers, or signing files in reachable text; this is not a guarantee.
+Portable key/password backup, signed source-to-APK verification, and CI on the latest unpushed signing-configuration changes remain release gates. The separate uncommitted desktop 2.2.0 work has an inadequately reviewed remote-SMS-command path and is excluded from this candidate. Previous README contact details remain in public Git history under the no-rewrite constraint. A heuristic scan found no credential assignments, private-key markers, or signing files in reachable text; this is not a guarantee.
 
 ## OSS program readiness
 
