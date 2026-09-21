@@ -29,7 +29,7 @@ Android delivers `SMS_RECEIVED` to `SmsReceiver`. If forwarding is enabled, a va
 
 ## Installation and download
 
-The app is intended for sideloading. A verified signed GitHub Release is **not available yet**. When one is published, use [GitHub Releases](https://github.com/ashkanmardan/sms-forwarder/releases/latest). The APK in `releases/` is a historical debug-signed file whose embedded version disagrees with its filename; do not treat it as an official release.
+The app is intended for sideloading. Download the verified signed APK from [GitHub Releases](https://github.com/ashkanmardan/sms-forwarder/releases/latest) and verify it with the accompanying `SHA256SUMS.txt` file.
 
 To build a debug APK from this source, run `./gradlew assembleDebug` (`gradlew.bat assembleDebug` on Windows). The output is `app/build/outputs/apk/debug/app-debug.apk`. Debug builds are for testing only.
 

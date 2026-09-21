@@ -7,4 +7,4 @@
 5. Match the APK to the reviewed source commit, then create a GitHub Release with the signed `SMSForwarder-vX.Y.Z.apk` and `SHA256SUMS.txt`. Use release notes based on the changelog; never upload a debug APK as an official release.
 6. Only after the verified release exists, consider removing the historical APK from the current tree in a normal commit. Do not rewrite history or force-push.
 
-Current stop: a new persistent key was created locally after explicit maintainer authorization, but a portable offline backup of both keystore and password has not been confirmed. The historical file is debug-signed and embeds version 2.0.0 despite its 2.1.0 filename. **Do not publish a public release yet.**
+The v2.1.1 release is signed with the persistent production key, verified, tagged, and published. Keep the keystore and recovery password backed up outside Git.

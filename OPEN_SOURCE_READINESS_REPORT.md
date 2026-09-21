@@ -24,11 +24,11 @@ The earlier local `clean lint test assembleDebug` run succeeded with Android SDK
 
 The new **debug-only** APK embeds `com.ashkan.smsforwarder.persian`, version `2.1.1`/code 4, min SDK 23, target SDK 35. Its local SHA-256 is `0EB69B2C7209016143C4C63540F00AF45564D59B30828630426BDDF6ADC64704`; this hash is for a local test artifact, not a release.
 
-The tracked `releases/SMSForwarder-v2.1.0.apk` is historical: embedded version `2.0.0`/code 2, Android debug certificate, SHA-256 `D9593939834E1F142ECCFAB6C9B66A09D4FFB8CD5699DACFD1DD02B6211F4B8B`. It is not source-matched to current code and must not be promoted.
+The historical debug APK was removed from the current tree after the verified v2.1.1 release. Historical commits remain unchanged.
 
 ## Signing
 
-A new persistent production key was created outside the repository after explicit maintainer authorization. Its certificate fingerprint was verified and differs from the historical debug certificate. The password is stored in a machine-protected Windows DPAPI file with restricted file access; recovery on another PC requires a separate password-manager copy. The Gradle release configuration now reads credentials from environment variables. **Portable backup and signed APK verification are still open**, so publication remains stopped. See [release procedure](docs/RELEASING.md).
+A new persistent production key was created outside the repository after explicit maintainer authorization. Its certificate fingerprint was verified and differs from the historical debug certificate. The password is stored in a machine-protected Windows DPAPI file with restricted file access; recovery on another PC requires a separate password-manager copy. The Gradle release configuration reads credentials from environment variables. The v2.1.1 APK was signed and verified with this identity. See [release procedure](docs/RELEASING.md).
 
 ## Device QA
 
@@ -52,11 +52,11 @@ Four redacted screenshots from the successful real-device smoke test are include
 
 ## GitHub Release
 
-GitHub's public releases API returned no releases at audit time. **No public release or checksum asset was created** because signing provenance and device QA are missing. The historical APK stays in the tree as flagged evidence until a verified release exists.
+The public [v2.1.1 GitHub Release](https://github.com/ashkanmardan/sms-forwarder/releases/tag/v2.1.1) contains the verified APK and checksum assets. The downloaded APK matched the published checksum, certificate, package, and version metadata.
 
 ## Remaining risks
 
-Portable key/password backup, signed source-to-APK verification, and CI on the latest unpushed signing-configuration changes remain release gates. The separate uncommitted desktop 2.2.0 work has an inadequately reviewed remote-SMS-command path and is excluded from this candidate. Previous README contact details remain in public Git history under the no-rewrite constraint. A heuristic scan found no credential assignments, private-key markers, or signing files in reachable text; this is not a guarantee.
+Keep a portable backup of the production key and recovery password. The separate desktop 2.2.0 work has an inadequately reviewed remote-SMS-command path and remains excluded. Previous README contact details remain in public Git history under the no-rewrite constraint. A heuristic scan found no credential assignments, private-key markers, or signing files in reachable text; this is not a guarantee.
 
 ## OSS program readiness
 
