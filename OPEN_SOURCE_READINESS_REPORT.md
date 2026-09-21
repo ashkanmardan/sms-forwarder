@@ -2,7 +2,7 @@
 
 ## Repository State
 
-`main` is the active branch. PR #1 was merged without history rewriting or force-push. The current cleanup commit is `950203f`.
+`main` is the active branch and contains the completed v2.1.1 post-release cleanup. PR #1 was merged without history rewriting or force-push.
 
 ## OSS Foundation
 
@@ -18,7 +18,7 @@ A persistent production signing identity exists outside Git. The v2.1.1 APK was 
 
 ## CI
 
-The latest main Android checks passed: clean, lint, unit tests, and assembleDebug. See the [workflow run](https://github.com/ashkanmardan/sms-forwarder/actions/runs/35594087772).
+Current main Android checks are green: clean, lint, unit tests, and assembleDebug. See the [Android checks workflow](https://github.com/ashkanmardan/sms-forwarder/actions/workflows/build-apk.yml) for current results.
 
 ## APK Verification
 
