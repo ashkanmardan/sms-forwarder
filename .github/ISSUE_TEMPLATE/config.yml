@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security reporting guidance
+    url: https://github.com/ashkanmardan/sms-forwarder/blob/main/SECURITY.md
+    about: Read the private reporting instructions; never disclose vulnerabilities or SMS data in public issues.
